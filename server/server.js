@@ -22,7 +22,7 @@ const app = express();
 const server = http.createServer(app);
 const io = IO(server, {
 	cors: {
-		origin: "http://localhost:3001",
+		origin: "*",
 		methods: ["GET", "POST"],
 	},
 });
@@ -40,7 +40,7 @@ const s3 = new aws.S3({
 
 app.use(
 	cor({
-		origin: "http://localhost:3001",
+		origin: "*",
 		allowedHeaders: [
 			"Content-Type",
 			"Authorization",
@@ -50,6 +50,8 @@ app.use(
 		credentials: true,
 	})
 );
+
+app.use(express.static(path.join(__dirname,'..', 'build')))
 
 app.use(
 	session({
@@ -162,7 +164,11 @@ io.on("connection", (socket) => {
 });
 
 app.get("/", (req, res) => {
-	res.status(200).send();
+	console.log(path.join(__dirname,'build','index.html'))
+	res.sendFile(path.join(__dirname,'..','build','index.html'),(err) => {
+		if (err) {
+		  res.status(500).send(err);
+		}})
 });
 
 app.get(
