@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    
+}
+
+.bg-image{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.backgroungImage{
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur('20px');
+    -webkit-backdrop-filter: blur('20px');
+    background: rgba(233, 226, 226, 0.4);
+}
